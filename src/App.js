@@ -1,24 +1,23 @@
-// rfc
 import React from 'react'
-import './App1.scss'
-import Header from './head'
-import Footer from './footer'
-//component => thành phần
-// export default function App() {
-//   return (
-//     <div>App</div>
-//   )
-// }
-
-const App = () =>{
-  return(
-    <div className="containerapp"> 
-      <Header />
-   <div>Body</div>
-   
-    <Footer/>
-    </div>
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+} from "react-router-dom";
+import "./App.scss"
+import Home from './screens/Home'
+import Product from './screens/Products'
+import Detail from './screens/Detail'
+import Cart from './screens/Cart'
+export default function App() {
+  return (
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/products" element={<Product />} />
+      <Route path="/detail/:id" element={<Detail />} />
+      <Route path="/cart" element={<Cart />} />
+    </Routes>
+  </BrowserRouter>
   )
 }
-export default App;
-
