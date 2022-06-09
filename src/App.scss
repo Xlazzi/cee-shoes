@@ -105,3 +105,41 @@
 .product-container {
   margin: 12.5rem 40px 0px;
 }
+// comment
+
+.wrap-write-review {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-comment {
+  border: 1px solid grey;
+  height: 50px;
+  width: 50%;
+  margin-top: 10px;
+}
+.item-number {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  border: 1px solid grey;
+  padding: 5px;
+  border-radius: 100%;
+  height: 20px;
+  width: 20px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #2FA5E9;
+  color: white;
+}
+.wrap-heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.wrap-heart:hover {
+  cursor: pointer;
+  color: pink;
+}

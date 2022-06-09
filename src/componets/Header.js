@@ -10,7 +10,10 @@ import {
 import { FiLogOut } from "react-icons/fi";
 import { categories } from '../fakeData'
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 export default function Header() {
+  const cartData = useSelector(store=>store.productReducer.cart)
   return (
     <div>
         <div className='flex flex-row h-14 items-center fixed w-full top-0 z-50'>
@@ -31,8 +34,11 @@ export default function Header() {
           </div>
           <div className='flex flex-row'>
             <FaUser className='text-2xl mr-10 text-gray-300' />
-            <FaHeart className='text-2xl mr-10 text-gray-300' />
-            <FaShoppingCart className='text-2xl mr-10 text-gray-300' />
+            <Link to={'/heart'}> <FaHeart className='text-2xl mr-10 text-gray-300' /></Link>
+            <Link to={'/cart'} className='page-link cursor-pointer w-20 relative'>
+              <FaShoppingCart className='text-2xl mr-10 text-gray-300' />
+              <div className='item-number'>{cartData?.length}</div>
+            </Link>
             <FiLogOut className='text-2xl mr-10 text-gray-300' />
           </div>
         </div>
@@ -40,3 +46,4 @@ export default function Header() {
     </div>
   )
 }
+

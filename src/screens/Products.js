@@ -8,9 +8,52 @@ import {
 } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { products } from '../fakeData'
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Header from "../componets/Header"
+import { useLocation,useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {getProducts} from "../services/api";
+import {getImagePath} from "../utils/index";
+import { useSelector, useDispatch } from "react-redux";
+import HeartIcon from '../assets/HeartIcon';
+
+
 function App() {
+  const params= useParams();
+  const navigate=useNavigate();
+  const dispatch = useDispatch();
+
+
+  const location = useLocation();
+  const [data,setData]=useState([]);
+  // console.log('location', location)
+  
+  useEffect(() => {
+    const getAllProducts= async()=>{
+      const result= await getProducts();
+      console.log('result',result.data.data)
+      setData(result.data.data);
+    };
+    getAllProducts();
+
+  },[]);
+  const onMoveDetail=(item)=>()=>{
+    navigate(`/detail/${item._id}`);
+}
+
+  const addToCart=(item)=>()=>{
+    dispatch({
+      type: "ADD_PRODUCT", 
+      data: item
+    })
+  }
+  const addToWishList =(item)=> () => {
+    dispatch({
+      type: "ADD_WISHLIST", 
+      data: item
+    })
+  };
+  
   return (
     <div>
       {/* header */}
@@ -159,16 +202,25 @@ function App() {
 
           {/* item */}
           <div className='flex flex-wrap overflow-auto mt-4 -mr-10' style={{ height: 'calc(100vh - 16rem)' }}>
-            {products.map(e => (
-              <div className='mr-12 mb-12' style={{ width: 'calc(25% - 48px)' }}>
-                <img src={e.img} alt={e.title} className='object-cover h-48 w-full' />
+            {data.map((e , i)=>(
+              <div key={i}className='mr-12 mb-12' style={{ width: 'calc(25% - 48px)' }}>
+                  <div className="relative">
+                    <img src={getImagePath(e.images?.[0])} alt={e.title} className='object-cover h-48 w-full' />
+                    <div onClick={addToWishList(e)} className="wrap-heart">
+                      <div>
+                      <HeartIcon />
+                      </div>
+                  </div>
+                </div>
                 <div className='p-1'>
                   <div className='font-bold'>{e.title}</div>
-                  <div>{e.details}</div>
-                  <div>{e.rating}⭐</div>
+                  <div>{e.material}</div>
+                  <div>{e.star}⭐</div>
                   <div>{e.price}$</div>
                 </div>
-                <div className='bg-gray-800 h-11 flex justify-center items-center uppercase font-medium text-white cursor-pointer'>
+                <div 
+                onClick={addToCart(e)}
+                className='bg-gray-800 h-11 flex justify-center items-center uppercase font-medium text-white cursor-pointer'>
                   Add to cart
                 </div>
               </div>
@@ -177,6 +229,7 @@ function App() {
         </div>
       </div>
 
+  
     </div >
   );
 }
