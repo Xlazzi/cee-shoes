@@ -37,7 +37,7 @@ import {
                   <div className='ml-4 w-full'>
                     <div className='flex justify-between'>
                       <div className='font-bold'>{item?.name}</div>
-                      <div className='font-bold'>8295$</div>
+                      {/* <div className='font-bold'>8295$</div> */}
                     </div>
                     <div className='text-xs font-bold text-gray-600'>Nike</div>
                     <div>Black/Rough Green/White/Total Orange</div>
