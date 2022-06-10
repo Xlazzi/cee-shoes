@@ -53,14 +53,14 @@ import {
                           <option>11</option>
                         </select>
                       </div>
-                      <div className='flex flex-row'>
+                      {/* <div className='flex flex-row'>
                         <div className='mr-2'>Quantity</div>
                         <div className='flex flex-row'>
                           <div className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>-</div>
                           <div className='h-6 w-6 bg-gray-300 flex justify-center items-center'>1</div>
                           <div className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>+</div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <div className='flex flex-row mt-4'>
                       <div className='mr-4 bg-gray-800 h-8 rounded px-2 flex justify-center items-center uppercase text-white cursor-pointer'>Move to wishlist</div>

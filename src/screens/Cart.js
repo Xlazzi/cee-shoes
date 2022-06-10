@@ -11,13 +11,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { products } from '../fakeData';
 import Header from "../componets/Header";
 import { getImagePath } from '../utils';
+import { useState } from "react";
 
 const sizeList = [40, 41, 42, 43];
 
 function App() {
 
   const cartData = useSelector(store => store.productReducer.cart);
-
+  const [quantity,setQuantity]=  useState(1);
+  const handleDecrement = () => {
+    if(quantity >1 ){
+      setQuantity(prevCount => prevCount - 1)
+    }
+  }
+  const handleIncrement =() =>{
+      setQuantity(prevCount => prevCount + 1)  
+  }
   return (
     <div>
       {/* header */}
@@ -37,7 +46,7 @@ function App() {
                 <div className='ml-4 w-full'>
                   <div className='flex justify-between'>
                     <div className='font-bold'>{item?.name}</div>
-                    <div className='font-bold'>8295$</div>
+                    <div className='font-bold'>{item.price}$</div>
                   </div>
                   <div className='text-xs font-bold text-gray-600'>Nike</div>
                   <div>Black/Rough Green/White/Total Orange</div>
@@ -56,14 +65,14 @@ function App() {
                     <div className='flex flex-row'>
                       <div className='mr-2'>Quantity</div>
                       <div className='flex flex-row'>
-                        <div className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>-</div>
-                        <div className='h-6 w-6 bg-gray-300 flex justify-center items-center'>1</div>
-                        <div className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>+</div>
+                        <div onClick={handleDecrement} className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>-</div>
+                        <div className=' h-6 w-6 bg-gray-300 flex justify-center items-center'>{quantity}</div>
+                        <div onClick={handleIncrement}  className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>+</div>
                       </div>
                     </div>
                   </div>
                   <div className='flex flex-row mt-4'>
-                    <div className='mr-4 bg-gray-800 h-8 rounded px-2 flex justify-center items-center uppercase text-white cursor-pointer'>Move to wishlist</div>
+                    <div className='mr-4 bg-gray-800 h-8 rounded px-2 flex justify-center items-center uppercase text-white cursor-pointer'>Move to cart</div>
                     <div className='bg-gray-800 h-8 rounded px-2 flex justify-center items-center uppercase text-white cursor-pointer'>Remove</div>
                   </div>
                 </div>
