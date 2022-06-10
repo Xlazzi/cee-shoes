@@ -1,8 +1,7 @@
 const initState = {
     // ke hang
     cart: [],
-    heart: [],
-    electrics: []
+    heart: []
   };
   const productReducer = (state = initState, action) => {
     console.log("action", action); // => {type: 'FROM_A', data: 'socola'}
@@ -17,10 +16,10 @@ const initState = {
           ...state,
           heart: [...state.heart, action.data]
         };
-      case "FROM_E":
+      case "DELETE_WISHLIST":
         return {
           ...state,
-          electrics: [...state.electrics, action.data]
+          heart: state.heart.filter((x)=>x._id != action.data._id)
         };
   
       default:

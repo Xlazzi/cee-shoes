@@ -27,6 +27,8 @@ function App() {
   const location = useLocation();
   const [data,setData]=useState([]);
   // console.log('location', location)
+
+  const heartData = useSelector(store => store.productReducer.heart);
   
   useEffect(() => {
     const getAllProducts= async()=>{
@@ -50,6 +52,12 @@ function App() {
   const addToWishList =(item)=> () => {
     dispatch({
       type: "ADD_WISHLIST", 
+      data: item
+    })
+  };
+  const deleteToWishList =(item)=> () => {
+    dispatch({
+      type: "DELETE_WISHLIST", 
       data: item
     })
   };
@@ -206,10 +214,10 @@ function App() {
               <div key={i}className='mr-12 mb-12' style={{ width: 'calc(25% - 48px)' }}>
                   <div className="relative">
                     <img src={getImagePath(e.images?.[0])} alt={e.title} className='object-cover h-48 w-full' />
-                    <div onClick={addToWishList(e)} className="wrap-heart">
+                    <div onClick={heartData.findIndex(x=> x._id === e._id) != -1? deleteToWishList(e):addToWishList(e)} className={heartData.findIndex(x=> x._id === e._id) != -1 ?"wrap-heart-2" :"wrap-heart"}>
                       <div>
                       <HeartIcon />
-                      </div>
+                        </div>
                   </div>
                 </div>
                 <div className='p-1'>
